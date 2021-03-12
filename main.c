@@ -27,8 +27,8 @@ void main(void)
     //disable interrupts
     __disable_irq();
 
-//    config_button();
-//    config_nvic_button();
+    config_button();
+    config_nvic_button();
 
     //enable interrupts
     __enable_irq();
@@ -74,18 +74,27 @@ void main(void)
      // Students need to figure this out
      while(state == 1){
          //after the button is pressed, the IMU will no longer be communicating with the MSP
+         printf("Made it to state 1! :)\n");
     }
 }
 
-/* Port1 ISR */
-/*void PORT1_IRQHandler(void)
+ //Port1 ISR */
+void PORT1_IRQHandler(void)
 {
+    __NVIC_DisableIRQ(PORT1_IRQn); //disable since we're in the interrupt
     volatile uint32_t j;
 
+    state = 1;
+
+
     //Check flag
+    if(P1->IFG & BIT1){
+        P1->IFG &= ~BIT1;
+    }
 
     // Delay for switch debounce, can use __no_operation() instead if you want!
     for(j = 0; j < 100000; j++)
 
     //end of interrupt, what needs to happen here?
-}*/
+   __NVIC_EnableIRQ(PORT1_IRQn); //enable interrupt since we are about to exit handler
+}

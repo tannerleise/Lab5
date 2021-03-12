@@ -23,14 +23,15 @@ void config_button(void)
 
     P1->REN |= BIT1; //uses pullup resistor config
     P1->IES |= BIT1; //Falling edge interrupt trigger
-    P2->IFG &= ~BIT1; //Clears initial interrupt flag
-    P2->IE |= BIT1; //Enables interrupt functionality for P1.1
+    P1->IFG &= ~BIT1; //Clears initial interrupt flag
+    P1->IE |= BIT1; //Enables interrupt functionality for P1.1
 }
 
 /* Configure NVIC for Interrupt Source */
 void config_nvic_button(void)
 {
     //configure the NVIC for the button interrupt source
+    __NVIC_EnableIRQ(PORT1_IRQn);
 }
 
 
