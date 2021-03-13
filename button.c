@@ -19,7 +19,6 @@ void config_button(void)
 
     P1->SEL0 &= ~BIT1; //0000000000 GENERAL IO PIN CONFIG
     P1->SEL1 &= ~BIT1;// 0000000000
-    P1->DIR &= ~BIT1; //sets p1.1 as input
 
     P1->REN |= BIT1; //uses pullup resistor config
     P1->IES |= BIT1; //Falling edge interrupt trigger
